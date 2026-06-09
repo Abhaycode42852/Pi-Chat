@@ -1,7 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import Logout from './Logout';
+import ChatIput from './ChatInput';
+import Messages from './Messages';
 export default function ChatContainer(props) {
+  const handleSendMsg = async( msg ) => {
+    alert(msg);
+  };
   return (
     <Container>
       <div className="chat-header">
@@ -18,9 +23,9 @@ export default function ChatContainer(props) {
         </div>
       <Logout/>
       </div>
-      <div className="chat-messages">
-        <div className="chat-input"></div>
-      </div>
+      <Messages/>
+        <ChatIput handleSendMsg = {handleSendMsg}/>
+      
     </Container>
   )
 }
