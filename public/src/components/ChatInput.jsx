@@ -50,6 +50,10 @@ align-items : center;
 background-color : #080420;
 padding : 0 2rem;
 padding-bottom : 0.3rem;
+@media screen and (min-width : 720px ) and (max-width : 1080px) {
+    padding : 0 1rem;
+    gap : 1rem;
+}
 
 .button-container{
   display : flex;
@@ -57,7 +61,7 @@ padding-bottom : 0.3rem;
   color : white;
   gap : 1rem;
   .emoji{
-  positon : relative;  
+  position : relative;  
   svg{
     font-size : 1.5rem;
     color : #ffff00c8;
@@ -65,7 +69,8 @@ padding-bottom : 0.3rem;
     }
  .EmojiPickerReact {
  position : absolute;
- top : 170px;
+  bottom: 2rem;
+  left: 0;
   --epr-bg-color: #080420;
   --epr-category-label-bg-color: #080420;
   --epr-hover-bg-color: #9a86f3;
@@ -100,7 +105,7 @@ padding-bottom : 0.3rem;
     input{
     width : 90%;
     height : 60%;
-    background- color : transparent;
+    background-color : transparent;
     color : White;
     border : none ;
     padding-left : 1rem;
@@ -121,6 +126,12 @@ padding-bottom : 0.3rem;
     align-items : center;
     background-color : #9a86f3;
     border : none;
+    @media screen and (min-width : 720px ) and (max-width : 1080px) {
+    padding : 0.3rem 1rem;
+    svg {
+       font-size : 1rem;
+    }
+    }
     svg {
     font-size : 2rem;
     color : white;

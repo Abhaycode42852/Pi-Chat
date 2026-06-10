@@ -90,7 +90,31 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    padding-right : 0.5rem;
     gap: 0.8rem;
+    @media screen and (max-width: 500px) {
+      gap: 0.5rem;
+      .username {
+        display : none;
+      }
+    }
+       @media screen and (min-width: 720px) and (max-width: 1080px) {
+      gap: 0.5rem;
+      .username {
+      &::-webkit-scrollbar {
+      width: 0.2rem;
+      &-thumb {
+        background-color: #ffffff39;
+        width: 0.1rem;
+        border-radius: 1rem;
+      }
+    }
+      overflow : auto;      
+        h2 {
+          font-size: 0.6rem;
+        }
+      }
+    }
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -148,7 +172,7 @@ const Container = styled.div`
       gap: 0.5rem;
       .username {
         h2 {
-          font-size: 0.6rem;
+          font-size: 0.8rem;
         }
       }
     }

@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { allUsersRoute } from "../utills/apiRoutes";
+import { allUsersRoute , host } from "../utills/apiRoutes";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
+import {io} from "socket.io-client";
 export default function Chat() {
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const navigate = useNavigate();
-
+  const socket = useRef();
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
       navigate("/login");
@@ -20,6 +21,14 @@ export default function Chat() {
     }
     // eslint-disable-next-line
   }, []);
+
+  useEffect(()=>{
+    if (currentUser){
+      socket.current = io(host);
+      socket.current.emit("add-user" , currentUser._id);
+    }
+  },[currentUser])
+
   
   const dataLoad=async ()=>{
     if(currentUser){
@@ -47,7 +56,7 @@ export default function Chat() {
       <div className="container">
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange}/>
         
-        {currentChat=== undefined?<Welcome currentUser={currentUser}/>:<ChatContainer currentChat={currentChat} currentUser = {currentUser}/>}
+        {currentChat=== undefined?<Welcome currentUser={currentUser}/>:<ChatContainer currentChat={currentChat} currentUser = {currentUser} socket = {socket} />}
       </div>
     </Container>
   );
@@ -63,6 +72,8 @@ const Container = styled.div`
   align-items: center;
   background-color: #131324;
   .container {
+       overflow : auto;
+         min-height: 0;
     height: 85vh;
     width: 85vw;
     background-color: #00000076;
