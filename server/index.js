@@ -2,12 +2,14 @@ const express= require("express");
 const cors= require("cors");
 const mongoose=require("mongoose");
 const usersRoutes=require('./Routes/usersRoutes');
+const messagesRoutes=require('./Routes/messagesRoutes');
 const app= express();
 require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
 app.use('/api/auth',usersRoutes)
+app.use('/api/messages',messagesRoutes)
 
 mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log("Mongodb connected sucessfully")

@@ -3,3 +3,5 @@ export const registerRoute= `${host}/api/auth/register`;
 export const loginRoute= `${host}/api/auth/login`;
 export const allUsersRoute= `${host}/api/auth/allusers`;
 export const setAvatarRoutes= `${host}/api/auth/setavatar`;
+export const sendMessageRoutes= `${host}/api/messages/addmsg`;
+export const getAllMsgRoutes= `${host}/api/messages/getmsg`;

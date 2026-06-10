@@ -1,11 +1,30 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import styled from 'styled-components'
 import Logout from './Logout';
 import ChatIput from './ChatInput';
 import Messages from './Messages';
+import axios from 'axios'
+import { sendMessageRoutes , getAllMsgRoutes } from '../utills/apiRoutes';
 export default function ChatContainer(props) {
+
+  const [messages ,setMessages] = useState([]);
+
+  useEffect(()=>{const loadData = async() => {
+    const response = await axios.post(getAllMsgRoutes , {
+      from : props.currentUser._id,
+      to : props.currentChat._id
+    })
+    setMessages(response.data);
+  }
+  loadData();
+},[props.currentChat]);
+
   const handleSendMsg = async( msg ) => {
-    alert(msg);
+    await axios.post(sendMessageRoutes,{
+      from: props.currentUser._id,
+      to : props.currentChat._id,
+      message : msg
+    })
   };
   return (
     <Container>
@@ -23,13 +42,29 @@ export default function ChatContainer(props) {
         </div>
       <Logout/>
       </div>
-      <Messages/>
+      <div className="chat-messages">
+        {
+          messages.map((message,index)=>{
+             return (<div key={index}>
+              <div className={`message ${message.fromSelf ? "sended" : "recieved"}`} >
+                <div className="content" >
+                  {message.message}
+                </div>
+              </div>
+             </div>)
+          })
+        }
+      </div>
         <ChatIput handleSendMsg = {handleSendMsg}/>
       
     </Container>
   )
 }
 const Container=styled.div`
+height: 100%;
+width: 100%;
+    display:grid;
+  grid-template-rows: 15% 70% 15%;
 @media screen and (min-width: 720px) and (max-width: 1080px) {
     display:grid;
   grid-template-rows: 15% 70% 15%;
@@ -55,7 +90,7 @@ const Container=styled.div`
         }
       }
     }
-}
+}}
 
 .chat-messages {
   padding: 1rem 2rem;
